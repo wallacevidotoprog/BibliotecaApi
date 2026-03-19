@@ -10,6 +10,45 @@ namespace BibliotecaApi.Infrastructure.Data
         {
         }
 
+        public override int SaveChanges()
+        {
+            OnBeforeSaving();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            OnBeforeSaving();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            OnBeforeSaving();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void OnBeforeSaving()
+        {
+            var entries = ChangeTracker.Entries();
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is DefaultEntity trackable)
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            trackable.DataAtualizacao = DateTime.Now;
+                            break;
+
+                        case EntityState.Added:
+                            trackable.DataCriacao = DateTime.Now;
+                            break;
+                    }
+                }
+            }
+        }
+
         public DbSet<UsuariosEntity> Usuarios { get; set; }
         public DbSet<LivroEntity> Livros { get; set; }
         public DbSet<EmprestimoEntity> Emprestimos { get; set; }

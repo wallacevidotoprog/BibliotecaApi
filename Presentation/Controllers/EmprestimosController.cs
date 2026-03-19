@@ -53,8 +53,8 @@ namespace BibliotecaApi.Presentation.Controllers
         [HttpPost("{id}/devolucao")]
         public async Task<IActionResult> Devolver(int id)
         {
-            await _devolucaoUseCase.ExecuteAsync(id);
-            return Ok(ApiResponse<string>.Success("Devolução registrada com sucesso."));
+            var response = await _devolucaoUseCase.ExecuteAsync(id);
+            return Ok(ApiResponse<EmprestimoResponse>.Success(response));
         }
 
         [HttpDelete("{id}")]

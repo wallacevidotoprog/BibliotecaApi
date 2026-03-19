@@ -29,7 +29,7 @@ namespace BibliotecaApi.Application.UseCases.Livros
 
         private static LivroResponse MapToResponse(LivroEntity l)
         {
-            return new LivroResponse(l.Id, l.Titulo, l.Autor, l.ISBN.Valor, l.Ativo, l.DataCriacao, l.DataAtualizacao);
+            return new LivroResponse(l.Id, l.Titulo, l.Autor, l.ISBN.Valor, l.Ativo, l.EmUso, l.DataCriacao, l.DataAtualizacao);
         }
     }
 }

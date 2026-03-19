@@ -5,9 +5,9 @@ namespace BibliotecaApi.Domain.Entities
     public class EmprestimoEntity : DefaultEntity
     {
         public int IdUsuario { get; private set; }
-        public virtual UsuariosEntity? Usuario { get; private set; }
+        public UsuariosEntity Usuario { get; private set; }
         public int IdLivro { get; private set; }
-        public virtual LivroEntity? Livro { get; private set; }
+        public LivroEntity Livro { get; private set; }
         public DateTime DataEmprestimo { get; private set; }
         public DateTime DataPrevistaDevolucao { get; private set; }
         public DateTime? DataDevolucao { get; private set; }
@@ -71,7 +71,7 @@ namespace BibliotecaApi.Domain.Entities
         public bool EstaAtrasado()
         {
             return DataDevolucao == null
-                && DataPrevistaDevolucao < DateTime.Now;
+                && DataPrevistaDevolucao.Date < DateTime.Now.Date;
         }
     }
 }

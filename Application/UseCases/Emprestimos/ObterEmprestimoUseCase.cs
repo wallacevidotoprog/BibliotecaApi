@@ -34,13 +34,13 @@ namespace BibliotecaApi.Application.UseCases.Emprestimos
                 : null;
 
             var livroResponse = e.Livro != null
-                ? new LivroResponse(e.Livro.Id, e.Livro.Titulo, e.Livro.Autor, e.Livro.ISBN.Valor, e.Livro.Ativo, e.Livro.DataCriacao, e.Livro.DataAtualizacao)
+                ? new LivroResponse(e.Livro.Id, e.Livro.Titulo, e.Livro.Autor, e.Livro.ISBN.Valor, e.Livro.Ativo, e.Livro.EmUso, e.Livro.DataCriacao, e.Livro.DataAtualizacao)
                 : null;
 
             return new EmprestimoResponse(
                 e.Id,
-                usuarioResponse,
-                livroResponse,
+                new UsuarioEmprestimoResponse(e.Usuario.Id, e.Usuario.Nome),
+                new LivroEmprestimoResponse(e.Livro.Id, e.Livro.Titulo, e.Livro.ISBN.Valor),
                 e.DataEmprestimo,
                 e.DataPrevistaDevolucao,
                 e.DataDevolucao,

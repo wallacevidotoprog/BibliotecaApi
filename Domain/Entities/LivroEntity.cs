@@ -9,6 +9,7 @@ namespace BibliotecaApi.Domain.Entities
         public ISBN ISBN { get; private set; }
 
         public bool Ativo { get; private set; }
+        public bool EmUso { get; private set; } = false;
 
         public LivroEntity() { }
 
@@ -41,6 +42,16 @@ namespace BibliotecaApi.Domain.Entities
         public void Desativar()
         {
             Ativo = false;
+        }
+
+        public void MarcarComoEmUso()
+        {
+            EmUso = true;
+        }
+
+        public void DesmarcarComoEmUso()
+        {
+            EmUso = false;
         }
     }
 }

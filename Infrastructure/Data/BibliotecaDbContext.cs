@@ -23,8 +23,17 @@ namespace BibliotecaApi.Infrastructure.Data
                 entity.ToTable("Usuarios");
                 entity.HasKey(e => e.Id);
 
-                entity.OwnsOne(e => e.CPF);
-                entity.OwnsOne(e => e.Email);
+                entity.Property(e => e.Ativo).HasDefaultValue(true);
+
+                entity.OwnsOne(e => e.CPF, b =>
+                {
+                    b.Property(p => p.Numero).HasColumnName("CPF");
+                });
+
+                entity.OwnsOne(e => e.Email, b =>
+                {
+                    b.Property(p => p.Endereco).HasColumnName("Email");
+                });
             });
 
             modelBuilder.Entity<LivroEntity>(entity =>
@@ -32,7 +41,12 @@ namespace BibliotecaApi.Infrastructure.Data
                 entity.ToTable("Livros");
                 entity.HasKey(e => e.Id);
 
-                entity.OwnsOne(e => e.ISBN);
+                entity.Property(e => e.Ativo).HasDefaultValue(true);
+
+                entity.OwnsOne(e => e.ISBN, b =>
+                {
+                    b.Property(p => p.Valor).HasColumnName("ISBN");
+                });
             });
 
             modelBuilder.Entity<EmprestimoEntity>(entity =>

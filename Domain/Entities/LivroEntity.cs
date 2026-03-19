@@ -1,4 +1,4 @@
-﻿using BibliotecaApi.Domain.ValueObjects;
+using BibliotecaApi.Domain.ValueObjects;
 
 namespace BibliotecaApi.Domain.Entities
 {
@@ -7,6 +7,8 @@ namespace BibliotecaApi.Domain.Entities
         public string Titulo { get; private set; }
         public string Autor { get; private set; }
         public ISBN ISBN { get; private set; }
+
+        public bool Ativo { get; private set; }
 
         public LivroEntity() { }
 
@@ -30,6 +32,15 @@ namespace BibliotecaApi.Domain.Entities
             Titulo = titulo;
             Autor = autor;
             ISBN = ISBN.Criar(isbn);
+        }
+        public void Ativar()
+        {
+            Ativo = true;
+        }
+
+        public void Desativar()
+        {
+            Ativo = false;
         }
     }
 }

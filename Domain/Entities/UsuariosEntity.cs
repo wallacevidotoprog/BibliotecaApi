@@ -1,4 +1,4 @@
-﻿using BibliotecaApi.Domain.Enums;
+using BibliotecaApi.Domain.Enums;
 using BibliotecaApi.Domain.ValueObjects;
 
 namespace BibliotecaApi.Domain.Entities
@@ -10,6 +10,8 @@ namespace BibliotecaApi.Domain.Entities
         public Email Email { get; private set; }
         public NivelAcesso NivelAcesso { get; private set; }
         public string SenhaHash { get; private set; }
+
+        public bool Ativo { get; private set; }
 
 
         public UsuariosEntity() { }
@@ -28,8 +30,17 @@ namespace BibliotecaApi.Domain.Entities
             Email = Email.Criar(email);
             SenhaHash = senha; // fazer hash da senha aqui
             NivelAcesso = NivelAcesso.User;
+            Ativo = true;
         }
 
-        
+        public void Ativar()
+        {
+            Ativo = true;
+        }
+
+        public void Desativar()
+        {
+            Ativo = false;
+        }
     }
 }

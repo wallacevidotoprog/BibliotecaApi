@@ -1,5 +1,6 @@
 using BibliotecaApi.Infrastructure.IOC;
 using BibliotecaApi.Infrastructure.Data;
+using BibliotecaApi.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Executa o banco e o Seeder
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
+// seed
 DatabaseSeeder.Seed(app.Services);
 if (app.Environment.IsDevelopment())
 {

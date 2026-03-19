@@ -1,0 +1,15 @@
+services:
+  biblioteca-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: biblioteca_api_container
+    ports:
+      - "8080:8080"
+    volumes:
+      - biblioteca_data:/app/Database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+volumes:
+  biblioteca_data:

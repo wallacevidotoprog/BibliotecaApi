@@ -1,14 +1,21 @@
+using BibliotecaApi.Infrastructure.IOC;
+using BibliotecaApi.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddApplication();
+
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Executa o banco e o Seeder
+DatabaseSeeder.Seed(app.Services);
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

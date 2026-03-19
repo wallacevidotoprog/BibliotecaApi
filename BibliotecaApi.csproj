@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,13 +22,8 @@
     <Folder Include="Application\Services\" />
     <Folder Include="Application\DTOs\" />
     <Folder Include="Application\UseCases\" />
-    <Folder Include="Domain\Enums\" />
     <Folder Include="Domain\Exceptions\" />
     <Folder Include="Domain\Aggregates\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Domain\Interfaces\" />
-    <Folder Include="Domain\ValueObjects\" />
-    <Folder Include="Domain\Entities\" />
     <Folder Include="Database\" />
     <Folder Include="Infrastructure\Configurations\" />
     <Folder Include="Infrastructure\Persistence\Migrations\" />

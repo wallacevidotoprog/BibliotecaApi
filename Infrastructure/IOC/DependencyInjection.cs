@@ -24,6 +24,7 @@ namespace BibliotecaApi.Infrastructure.IOC
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<IUsuariosRepository, UsuariosRepository>();
             services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
+            services.AddScoped<BibliotecaApi.Domain.Services.AtrasoService>();
 
             return services;
         }

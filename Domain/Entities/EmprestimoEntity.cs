@@ -1,4 +1,6 @@
-﻿namespace BibliotecaApi.Domain.Entities
+using BibliotecaApi.Domain.Exceptions;
+
+namespace BibliotecaApi.Domain.Entities
 {
     public class EmprestimoEntity : DefaultEntity
     {
@@ -18,13 +20,13 @@
         public void Cadastrar(int idUsuario, int idLivro, DateTime dataPrevista)
         {
             if (idUsuario <= 0)
-                throw new Exception("Usuário inválido.");
+                throw new DomainException("Usuário inválido.");
 
             if (idLivro <= 0)
-                throw new Exception("Livro inválido.");
+                throw new DomainException("Livro inválido.");
 
             if (dataPrevista <= DateTime.Now)
-                throw new Exception("A data prevista de devolução deve ser futura.");
+                throw new DomainException("A data prevista de devolução deve ser futura.");
 
             IdUsuario = idUsuario;
             IdLivro = idLivro;
@@ -44,7 +46,7 @@
         private decimal CalcularMulta()
         {
             if (DataDevolucao == null)
-                throw new Exception("Empréstimo ainda não devolvido.");
+                throw new DomainException("Empréstimo ainda não devolvido.");
 
             TimeSpan atraso = DataDevolucao.Value.Date - DataPrevistaDevolucao.Date;
             int diasAtraso = atraso.Days;
@@ -64,6 +66,12 @@
             }
 
             return Math.Min(valorMulta, 50.00m);
+        }
+
+        public bool EstaAtrasado()
+        {
+            return DataDevolucao == null
+                && DataPrevistaDevolucao < DateTime.Now;
         }
     }
 }

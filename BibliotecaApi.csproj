@@ -7,32 +7,62 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.12" />
+    <Compile Remove="Application\Interfaces\**" />
+    <Compile Remove="Application\Mappings\**" />
+    <Compile Remove="Application\Services\**" />
+    <Compile Remove="Domain\Aggregates\**" />
+    <Compile Remove="Infrastructure\Configurations\**" />
+    <Compile Remove="Infrastructure\Persistence\**" />
+    <Compile Remove="Infrastructure\Services\**" />
+    <Compile Remove="Presentation\Configurations\**" />
+    <Compile Remove="Presentation\Filters\**" />
+    <Compile Remove="Presentation\Middlewares\**" />
+    <Content Remove="Application\Interfaces\**" />
+    <Content Remove="Application\Mappings\**" />
+    <Content Remove="Application\Services\**" />
+    <Content Remove="Domain\Aggregates\**" />
+    <Content Remove="Infrastructure\Configurations\**" />
+    <Content Remove="Infrastructure\Persistence\**" />
+    <Content Remove="Infrastructure\Services\**" />
+    <Content Remove="Presentation\Configurations\**" />
+    <Content Remove="Presentation\Filters\**" />
+    <Content Remove="Presentation\Middlewares\**" />
+    <EmbeddedResource Remove="Application\Interfaces\**" />
+    <EmbeddedResource Remove="Application\Mappings\**" />
+    <EmbeddedResource Remove="Application\Services\**" />
+    <EmbeddedResource Remove="Domain\Aggregates\**" />
+    <EmbeddedResource Remove="Infrastructure\Configurations\**" />
+    <EmbeddedResource Remove="Infrastructure\Persistence\**" />
+    <EmbeddedResource Remove="Infrastructure\Services\**" />
+    <EmbeddedResource Remove="Presentation\Configurations\**" />
+    <EmbeddedResource Remove="Presentation\Filters\**" />
+    <EmbeddedResource Remove="Presentation\Middlewares\**" />
+    <None Remove="Application\Interfaces\**" />
+    <None Remove="Application\Mappings\**" />
+    <None Remove="Application\Services\**" />
+    <None Remove="Domain\Aggregates\**" />
+    <None Remove="Infrastructure\Configurations\**" />
+    <None Remove="Infrastructure\Persistence\**" />
+    <None Remove="Infrastructure\Services\**" />
+    <None Remove="Presentation\Configurations\**" />
+    <None Remove="Presentation\Filters\**" />
+    <None Remove="Presentation\Middlewares\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Interfaces\" />
-    <Folder Include="Application\Mappings\" />
-    <Folder Include="Application\Services\" />
     <Folder Include="Application\DTOs\" />
     <Folder Include="Application\UseCases\" />
-    <Folder Include="Domain\Exceptions\" />
-    <Folder Include="Domain\Aggregates\" />
     <Folder Include="Database\" />
-    <Folder Include="Infrastructure\Configurations\" />
-    <Folder Include="Infrastructure\Persistence\Migrations\" />
-    <Folder Include="Infrastructure\Persistence\Repositories\" />
-    <Folder Include="Infrastructure\Persistence\External\" />
-    <Folder Include="Infrastructure\Services\" />
-    <Folder Include="Presentation\Configurations\" />
-    <Folder Include="Presentation\Filters\" />
-    <Folder Include="Presentation\Middlewares\" />
   </ItemGroup>
 
 </Project>

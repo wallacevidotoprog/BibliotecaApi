@@ -6,7 +6,7 @@ namespace BibliotecaApi.Domain.ValueObjects
     {
         public string Numero { get; }
 
-        private CPF() { Numero = string.Empty; } // Required by EF Core
+        private CPF() { Numero = string.Empty; }
 
         private CPF(string numero)
         {

@@ -9,5 +9,7 @@ namespace BibliotecaApi.Domain.Interfaces
         Task AddAsync(LivroEntity livro);
         Task UpdateAsync(LivroEntity livro);
         Task DeleteAsync(int id);
+        Task<bool> ExisteIsbnAsync(string isbn);
+        Task<bool> ExisteIsbnExceptIdAsync(string isbn, int id);
     }
 }

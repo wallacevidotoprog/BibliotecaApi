@@ -1,3 +1,4 @@
+using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Domain.Entities;
 using BibliotecaApi.Domain.Interfaces;
 
@@ -12,14 +13,23 @@ namespace BibliotecaApi.Application.UseCases.Livros
             _repository = repository;
         }
 
-        public async Task<LivroEntity?> ObterPorIdAsync(int id)
+        public async Task<LivroResponse?> ObterPorIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var livro = await _repository.GetByIdAsync(id);
+            if (livro == null) return null;
+
+            return MapToResponse(livro);
         }
 
-        public async Task<IEnumerable<LivroEntity>> ObterTodosAsync()
+        public async Task<IEnumerable<LivroResponse>> ObterTodosAsync()
         {
-            return await _repository.GetAllAsync();
+            var livros = await _repository.GetAllAsync();
+            return livros.Select(MapToResponse);
+        }
+
+        private static LivroResponse MapToResponse(LivroEntity l)
+        {
+            return new LivroResponse(l.Id, l.Titulo, l.Autor, l.ISBN.Valor, l.Ativo, l.DataCriacao, l.DataAtualizacao);
         }
     }
 }

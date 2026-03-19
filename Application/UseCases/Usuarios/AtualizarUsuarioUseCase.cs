@@ -1,5 +1,6 @@
 using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Domain.Entities;
+using BibliotecaApi.Domain.Exceptions;
 using BibliotecaApi.Domain.Interfaces;
 
 namespace BibliotecaApi.Application.UseCases.Usuarios
@@ -16,9 +17,21 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
         public async Task ExecuteAsync(AtualizarUsuarioRequest request)
         {
             var usuario = await _repository.GetByIdAsync(request.Id);
-            if (usuario == null) throw new Exception("Usuário não encontrado.");
+            if (usuario == null) throw new DomainException("Usuário não encontrado.");
 
-            usuario.Cadastrar(request.Nome, request.CPF, request.Email, request.Senha);
+
+            var nome = !string.IsNullOrWhiteSpace(request.Nome) ? request.Nome : usuario.Nome;
+            var cpf = !string.IsNullOrWhiteSpace(request.CPF) ? request.CPF : usuario.CPF.Numero;
+            var email = !string.IsNullOrWhiteSpace(request.Email) ? request.Email : usuario.Email.Endereco;
+            var senha = !string.IsNullOrWhiteSpace(request.Senha) ? request.Senha : usuario.SenhaHash;
+
+            if (await _repository.ExisteCpfExceptIdAsync(cpf, request.Id))
+                throw new DomainException("Já existe outro usuário cadastrado com este CPF.");
+
+            if (await _repository.ExisteEmailExceptIdAsync(email, request.Id))
+                throw new DomainException("Já existe outro usuário cadastrado com este Email.");
+
+            usuario.Cadastrar(nome, cpf, email, senha, usuario.NivelAcesso);
             await _repository.UpdateAsync(usuario);
         }
     }

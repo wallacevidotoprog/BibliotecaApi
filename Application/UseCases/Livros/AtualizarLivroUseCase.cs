@@ -1,5 +1,6 @@
 using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Domain.Entities;
+using BibliotecaApi.Domain.Exceptions;
 using BibliotecaApi.Domain.Interfaces;
 
 namespace BibliotecaApi.Application.UseCases.Livros
@@ -16,9 +17,15 @@ namespace BibliotecaApi.Application.UseCases.Livros
         public async Task ExecuteAsync(AtualizarLivroRequest request)
         {
             var livro = await _repository.GetByIdAsync(request.Id);
-            if (livro == null) throw new Exception("Livro não encontrado.");
+            if (livro == null) throw new DomainException("Livro não encontrado.");
 
-            livro.Cadastrar(request.Id, request.Titulo, request.Autor, request.ISBN);
+            var titulo = !string.IsNullOrWhiteSpace(request.Titulo) ? request.Titulo : livro.Titulo;
+            var autor = !string.IsNullOrWhiteSpace(request.Autor) ? request.Autor : livro.Autor;
+            var isbn = !string.IsNullOrWhiteSpace(request.ISBN) ? request.ISBN : livro.ISBN.Valor;
+            if (await _repository.ExisteIsbnExceptIdAsync(isbn, request.Id))
+                throw new DomainException("Já existe outro livro cadastrado com este ISBN.");
+
+            livro.Cadastrar(request.Id, titulo, autor, isbn);
             await _repository.UpdateAsync(livro);
         }
     }

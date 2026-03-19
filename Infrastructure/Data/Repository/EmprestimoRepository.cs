@@ -50,5 +50,12 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<EmprestimoEntity>> GetByUsuarioIdAsync(int usuarioId)
+        {
+            return await _context.Emprestimos
+                .Where(e => e.IdUsuario == usuarioId)
+                .ToListAsync();
+        }
     }
 }

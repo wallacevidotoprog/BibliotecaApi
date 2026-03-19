@@ -1,3 +1,4 @@
+using BibliotecaApi.Domain.Exceptions;
 using BibliotecaApi.Infrastructure.Common;
 using System.Net;
 using System.Text.Json;
@@ -23,7 +24,7 @@ namespace BibliotecaApi.Infrastructure.Middleware
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ocorreu um erro não tratado.");
+                // _logger.LogError(ex, "Ocorreu um erro não tratado.");
                 await HandleExceptionAsync(context, ex);
             }
         }
@@ -31,7 +32,15 @@ namespace BibliotecaApi.Infrastructure.Middleware
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            
+            if (exception is DomainException)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+            else
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
 
             var response = ApiResponse<object>.Error(exception.Message);
             

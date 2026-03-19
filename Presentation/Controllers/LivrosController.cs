@@ -29,11 +29,11 @@ namespace BibliotecaApi.Presentation.Controllers
             _alternarStatusUseCase = alternarStatusUseCase;
         }
 
-        [HttpGet]
+        [HttpGet("listar")]
         public async Task<IActionResult> GetAll()
         {
             var livros = await _obterUseCase.ObterTodosAsync();
-            return Ok(ApiResponse<IEnumerable<Domain.Entities.LivroEntity>>.Success(livros));
+            return Ok(ApiResponse<IEnumerable<LivroResponse>>.Success(livros));
         }
 
         [HttpGet("{id}")]
@@ -41,26 +41,26 @@ namespace BibliotecaApi.Presentation.Controllers
         {
             var livro = await _obterUseCase.ObterPorIdAsync(id);
             if (livro == null) return NotFound(ApiResponse<object>.Error("Livro não encontrado."));
-            return Ok(ApiResponse<Domain.Entities.LivroEntity>.Success(livro));
+            return Ok(ApiResponse<LivroResponse>.Success(livro));
         }
 
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] CriarLivroRequest request)
         {
             await _criarUseCase.ExecuteAsync(request);
             return Ok(ApiResponse<string>.Success("Livro criado com sucesso."));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] AtualizarLivroRequest request)
         {
-            if (id != request.Id) return BadRequest(ApiResponse<object>.Error("Id divergente."));
+            request = request with { Id = id };
 
             await _atualizarUseCase.ExecuteAsync(request);
             return Ok(ApiResponse<string>.Success("Livro atualizado com sucesso."));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("deletar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _excluirUseCase.ExecuteAsync(id);

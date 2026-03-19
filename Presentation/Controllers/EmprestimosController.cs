@@ -30,7 +30,7 @@ namespace BibliotecaApi.Presentation.Controllers
         public async Task<IActionResult> GetAll()
         {
             var emprestimos = await _obterUseCase.ObterTodosAsync();
-            return Ok(ApiResponse<IEnumerable<Domain.Entities.EmprestimoEntity>>.Success(emprestimos));
+            return Ok(ApiResponse<IEnumerable<EmprestimoResponse>>.Success(emprestimos));
         }
 
         [HttpGet("{id}")]
@@ -38,18 +38,18 @@ namespace BibliotecaApi.Presentation.Controllers
         {
             var emprestimo = await _obterUseCase.ObterPorIdAsync(id);
             if (emprestimo == null) return NotFound(ApiResponse<object>.Error("Empréstimo não encontrado."));
-            return Ok(ApiResponse<Domain.Entities.EmprestimoEntity>.Success(emprestimo));
+            return Ok(ApiResponse<EmprestimoResponse>.Success(emprestimo));
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CriarEmprestimoRequest request)
         {
             await _criarUseCase.ExecuteAsync(request);
-            return Ok(ApiResponse<string>.Success("Empréstimo registrado com sucesso."));
+            return Ok(ApiResponse<string>.Success("Empréstimo realizado com sucesso."));
         }
 
-        [HttpPatch("{id}/devolucao")]
-        public async Task<IActionResult> RegistrarDevolucao(int id)
+        [HttpPost("{id}/devolucao")]
+        public async Task<IActionResult> Devolver(int id)
         {
             await _devolucaoUseCase.ExecuteAsync(id);
             return Ok(ApiResponse<string>.Success("Devolução registrada com sucesso."));

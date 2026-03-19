@@ -44,5 +44,25 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> ExisteCpfAsync(string cpf)
+        {
+            return await _context.Usuarios.AnyAsync(u => u.CPF.Numero == cpf);
+        }
+
+        public async Task<bool> ExisteEmailAsync(string email)
+        {
+            return await _context.Usuarios.AnyAsync(u => u.Email.Endereco == email);
+        }
+
+        public async Task<bool> ExisteCpfExceptIdAsync(string cpf, int id)
+        {
+            return await _context.Usuarios.AnyAsync(u => u.CPF.Numero == cpf && u.Id != id);
+        }
+
+        public async Task<bool> ExisteEmailExceptIdAsync(string email, int id)
+        {
+            return await _context.Usuarios.AnyAsync(u => u.Email.Endereco == email && u.Id != id);
+        }
     }
 }

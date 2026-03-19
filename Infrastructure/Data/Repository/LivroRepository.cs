@@ -44,5 +44,15 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> ExisteIsbnAsync(string isbn)
+        {
+            return await _context.Livros.AnyAsync(l => l.ISBN.Valor == isbn);
+        }
+
+        public async Task<bool> ExisteIsbnExceptIdAsync(string isbn, int id)
+        {
+            return await _context.Livros.AnyAsync(l => l.ISBN.Valor == isbn && l.Id != id);
+        }
     }
 }

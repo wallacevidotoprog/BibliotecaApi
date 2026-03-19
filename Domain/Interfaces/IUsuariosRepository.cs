@@ -9,5 +9,9 @@ namespace BibliotecaApi.Domain.Interfaces
         Task AddAsync(UsuariosEntity usuario);
         Task UpdateAsync(UsuariosEntity usuario);
         Task DeleteAsync(int id);
+        Task<bool> ExisteCpfAsync(string cpf);
+        Task<bool> ExisteEmailAsync(string email);
+        Task<bool> ExisteCpfExceptIdAsync(string cpf, int id);
+        Task<bool> ExisteEmailExceptIdAsync(string email, int id);
     }
 }

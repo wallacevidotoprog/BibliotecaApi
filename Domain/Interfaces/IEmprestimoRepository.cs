@@ -9,5 +9,6 @@ namespace BibliotecaApi.Domain.Interfaces
         Task AddAsync(EmprestimoEntity emprestimo);
         Task UpdateAsync(EmprestimoEntity emprestimo);
         Task DeleteAsync(int id);
+        Task<IEnumerable<EmprestimoEntity>> GetByUsuarioIdAsync(int usuarioId);
     }
 }

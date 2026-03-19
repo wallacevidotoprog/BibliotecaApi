@@ -1,6 +1,5 @@
 using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Application.UseCases.Usuarios;
-using BibliotecaApi.Domain.Enums;
 using BibliotecaApi.Infrastructure.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,11 +29,11 @@ namespace BibliotecaApi.Presentation.Controllers
             _alternarStatusUseCase = alternarStatusUseCase;
         }
 
-        [HttpGet]
+        [HttpGet("listar")]
         public async Task<IActionResult> GetAll()
         {
             var usuarios = await _obterUseCase.ObterTodosAsync();
-            return Ok(ApiResponse<IEnumerable<Domain.Entities.UsuariosEntity>>.Success(usuarios));
+            return Ok(ApiResponse<IEnumerable<UsuarioResponse>>.Success(usuarios));
         }
 
         [HttpGet("{id}")]
@@ -42,26 +41,25 @@ namespace BibliotecaApi.Presentation.Controllers
         {
             var usuario = await _obterUseCase.ObterPorIdAsync(id);
             if (usuario == null) return NotFound(ApiResponse<object>.Error("Usuário não encontrado."));
-            return Ok(ApiResponse<Domain.Entities.UsuariosEntity>.Success(usuario));
+            return Ok(ApiResponse<UsuarioResponse>.Success(usuario));
         }
 
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] CriarUsuarioRequest request)
         {
             await _criarUseCase.ExecuteAsync(request);
             return Ok(ApiResponse<string>.Success("Usuário criado com sucesso."));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] AtualizarUsuarioRequest request)
         {
-            if (id != request.Id) return BadRequest(ApiResponse<object>.Error("Id divergente."));
-
+            request = request with { Id = id };
             await _atualizarUseCase.ExecuteAsync(request);
             return Ok(ApiResponse<string>.Success("Usuário atualizado com sucesso."));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("deletar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _excluirUseCase.ExecuteAsync(id);

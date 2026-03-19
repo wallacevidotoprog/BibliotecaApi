@@ -1,3 +1,4 @@
+using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Domain.Entities;
 using BibliotecaApi.Domain.Interfaces;
 
@@ -12,14 +13,42 @@ namespace BibliotecaApi.Application.UseCases.Emprestimos
             _repository = repository;
         }
 
-        public async Task<EmprestimoEntity?> ObterPorIdAsync(int id)
+        public async Task<EmprestimoResponse?> ObterPorIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var e = await _repository.GetByIdAsync(id);
+            if (e == null) return null;
+
+            return MapToResponse(e);
         }
 
-        public async Task<IEnumerable<EmprestimoEntity>> ObterTodosAsync()
+        public async Task<IEnumerable<EmprestimoResponse>> ObterTodosAsync()
         {
-            return await _repository.GetAllAsync();
+            var emprestimos = await _repository.GetAllAsync();
+            return emprestimos.Select(MapToResponse);
+        }
+
+        private static EmprestimoResponse MapToResponse(EmprestimoEntity e)
+        {
+            var usuarioResponse = e.Usuario != null 
+                ? new UsuarioResponse(e.Usuario.Id, e.Usuario.Nome, e.Usuario.CPF.Numero, e.Usuario.Email.Endereco, e.Usuario.NivelAcesso, e.Usuario.Ativo, e.Usuario.PossuiAtrasoAtivo, e.Usuario.DataCriacao, e.Usuario.DataAtualizacao)
+                : null;
+
+            var livroResponse = e.Livro != null
+                ? new LivroResponse(e.Livro.Id, e.Livro.Titulo, e.Livro.Autor, e.Livro.ISBN.Valor, e.Livro.Ativo, e.Livro.DataCriacao, e.Livro.DataAtualizacao)
+                : null;
+
+            return new EmprestimoResponse(
+                e.Id,
+                usuarioResponse,
+                livroResponse,
+                e.DataEmprestimo,
+                e.DataPrevistaDevolucao,
+                e.DataDevolucao,
+                e.Valor,
+                e.Multa,
+                e.Total,
+                e.DataCriacao,
+                e.DataAtualizacao);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace BibliotecaApi.Infrastructure.Common
+﻿namespace BibliotecaApi.Infrastructure.Common
 {
     public class ApiResponse<T>
     {
@@ -10,7 +8,7 @@ namespace BibliotecaApi.Infrastructure.Common
 
         public static ApiResponse<T> Success(T data)
         {
-            return new ApiResponse<T>
+            return new ApiResponse<T>   
             {
                 Sucesso = true,
                 Conteudo = data

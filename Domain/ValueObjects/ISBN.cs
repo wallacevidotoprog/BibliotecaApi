@@ -6,7 +6,7 @@ namespace BibliotecaApi.Domain.ValueObjects
     {
         public string Valor { get; }
 
-        private ISBN() { Valor = string.Empty; } // Required by EF Core
+        private ISBN() { Valor = string.Empty; }
 
         private ISBN(string numero)
         {

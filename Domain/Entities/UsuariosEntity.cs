@@ -11,6 +11,8 @@ namespace BibliotecaApi.Domain.Entities
         public NivelAcesso NivelAcesso { get; private set; }
         public string SenhaHash { get; private set; }
 
+        public bool PossuiAtrasoAtivo { get; private set; } = false;
+
         public bool Ativo { get; private set; }
 
 
@@ -41,6 +43,11 @@ namespace BibliotecaApi.Domain.Entities
         public void Desativar()
         {
             Ativo = false;
+        }
+
+        public void AtualizarAtraso(bool possuiAtraso)
+        {
+            PossuiAtrasoAtivo = possuiAtraso;
         }
     }
 }

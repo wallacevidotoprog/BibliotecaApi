@@ -6,7 +6,7 @@ namespace BibliotecaApi.Domain.ValueObjects
     {
         public string Endereco { get; }
 
-        private Email() { Endereco = string.Empty; } // Required by EF Core
+        private Email() { Endereco = string.Empty; }
 
         private Email(string endereco)
         {

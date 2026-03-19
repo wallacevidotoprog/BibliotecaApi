@@ -18,20 +18,20 @@ namespace BibliotecaApi.Domain.Entities
 
         public UsuariosEntity() { }
 
-        public void Cadastrar(string nome, string cpf, string email, string senha, NivelAcesso nivelAcesso = NivelAcesso.User)
+        public void Cadastrar(string nome, string cpf, string email, string senhaHash, NivelAcesso nivelAcesso = NivelAcesso.Usuario)
         {
             if (string.IsNullOrWhiteSpace(nome))
                 throw new ArgumentException("Nome não pode ser vazio.");
 
-            if (string.IsNullOrWhiteSpace(senha))
+            if (string.IsNullOrWhiteSpace(senhaHash))
                 throw new ArgumentException("Senha não pode ser vazia.");
 
             
             Nome = nome;
             CPF = CPF.Criar(cpf);
             Email = Email.Criar(email);
-            SenhaHash = senha; // fazer hash da senha aqui
-            NivelAcesso = NivelAcesso.User;
+            SenhaHash = senhaHash;
+            NivelAcesso = nivelAcesso;
             Ativo = true;
         }
 

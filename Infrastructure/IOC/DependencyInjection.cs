@@ -20,6 +20,7 @@ namespace BibliotecaApi.Infrastructure.IOC
             });
 
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<IUsuariosRepository, UsuariosRepository>();
@@ -31,21 +32,20 @@ namespace BibliotecaApi.Infrastructure.IOC
 
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            // Livros
+
             services.AddScoped<CriarLivroUseCase>();
             services.AddScoped<AtualizarLivroUseCase>();
             services.AddScoped<ObterLivroUseCase>();
             services.AddScoped<ExcluirLivroUseCase>();
             services.AddScoped<AlternarStatusLivroUseCase>();
 
-            // Usuarios
             services.AddScoped<CriarUsuarioUseCase>();
             services.AddScoped<AtualizarUsuarioUseCase>();
             services.AddScoped<ObterUsuarioUseCase>();
             services.AddScoped<ExcluirUsuarioUseCase>();
             services.AddScoped<AlternarStatusUsuarioUseCase>();
+            services.AddScoped<LoginUseCase>();
 
-            // Emprestimos
             services.AddScoped<CriarEmprestimoUseCase>();
             services.AddScoped<RegistrarDevolucaoUseCase>();
             services.AddScoped<ObterEmprestimoUseCase>();

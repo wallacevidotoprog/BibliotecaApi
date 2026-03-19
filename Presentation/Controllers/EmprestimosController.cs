@@ -1,12 +1,14 @@
 using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Application.UseCases.Emprestimos;
 using BibliotecaApi.Infrastructure.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaApi.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class EmprestimosController : ControllerBase
     {
         private readonly CriarEmprestimoUseCase _criarUseCase;

@@ -30,7 +30,7 @@ namespace BibliotecaApi.Application.UseCases.Emprestimos
         private static EmprestimoResponse MapToResponse(EmprestimoEntity e)
         {
             var usuarioResponse = e.Usuario != null 
-                ? new UsuarioResponse(e.Usuario.Id, e.Usuario.Nome, e.Usuario.CPF.Numero, e.Usuario.Email.Endereco, e.Usuario.NivelAcesso, e.Usuario.Ativo, e.Usuario.PossuiAtrasoAtivo, e.Usuario.DataCriacao, e.Usuario.DataAtualizacao)
+                ? new UsuarioResponse(e.Usuario.Id, e.Usuario.Nome, e.Usuario.CPF.Numero, e.Usuario.Email.Endereco, e.Usuario.NivelAcesso.ToString(), e.Usuario.Ativo, e.Usuario.PossuiAtrasoAtivo, e.Usuario.DataCriacao, e.Usuario.DataAtualizacao)
                 : null;
 
             var livroResponse = e.Livro != null

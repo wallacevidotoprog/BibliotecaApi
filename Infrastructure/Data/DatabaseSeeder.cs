@@ -1,4 +1,5 @@
 using BibliotecaApi.Domain.Entities;
+using BibliotecaApi.Domain.Enums;
 using BibliotecaApi.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,8 +26,8 @@ namespace BibliotecaApi.Infrastructure.Data
                 var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
 
                 var admin = new UsuariosEntity();
-                // var senhaHash = passwordHasher.HashPassword("admin123");
-                admin.Cadastrar("Administrador", "00000000000", "admin@biblioteca.com", "admin123");
+                var senhaHash = passwordHasher.Hash("123");
+                admin.Cadastrar("Administrador", "00000000000", "admin@biblioteca.com", senhaHash, NivelAcesso.Administrador);
 
                 context.Usuarios.Add(admin);
                 context.SaveChanges();

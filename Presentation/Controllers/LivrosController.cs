@@ -1,12 +1,14 @@
 using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Application.UseCases.Livros;
 using BibliotecaApi.Infrastructure.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaApi.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class LivrosController : ControllerBase
     {
         private readonly CriarLivroUseCase _criarUseCase;

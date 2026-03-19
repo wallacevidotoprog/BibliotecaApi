@@ -14,7 +14,7 @@
     <Compile Remove="Infrastructure\Configurations\**" />
     <Compile Remove="Infrastructure\Persistence\**" />
     <Compile Remove="Infrastructure\Services\**" />
-    <Compile Remove="Presentation\Configurations\**" />
+    <Compile Remove="Presentation\Filters\**" />
     <Compile Remove="Presentation\Filters\**" />
     <Compile Remove="Presentation\Middlewares\**" />
     <Content Remove="Application\Interfaces\**" />
@@ -24,7 +24,7 @@
     <Content Remove="Infrastructure\Configurations\**" />
     <Content Remove="Infrastructure\Persistence\**" />
     <Content Remove="Infrastructure\Services\**" />
-    <Content Remove="Presentation\Configurations\**" />
+    <Content Remove="Presentation\Filters\**" />
     <Content Remove="Presentation\Filters\**" />
     <Content Remove="Presentation\Middlewares\**" />
     <EmbeddedResource Remove="Application\Interfaces\**" />
@@ -34,7 +34,7 @@
     <EmbeddedResource Remove="Infrastructure\Configurations\**" />
     <EmbeddedResource Remove="Infrastructure\Persistence\**" />
     <EmbeddedResource Remove="Infrastructure\Services\**" />
-    <EmbeddedResource Remove="Presentation\Configurations\**" />
+    <EmbeddedResource Remove="Presentation\Filters\**" />
     <EmbeddedResource Remove="Presentation\Filters\**" />
     <EmbeddedResource Remove="Presentation\Middlewares\**" />
     <None Remove="Application\Interfaces\**" />
@@ -44,12 +44,14 @@
     <None Remove="Infrastructure\Configurations\**" />
     <None Remove="Infrastructure\Persistence\**" />
     <None Remove="Infrastructure\Services\**" />
-    <None Remove="Presentation\Configurations\**" />
+    <None Remove="Presentation\Filters\**" />
     <None Remove="Presentation\Filters\**" />
     <None Remove="Presentation\Middlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>

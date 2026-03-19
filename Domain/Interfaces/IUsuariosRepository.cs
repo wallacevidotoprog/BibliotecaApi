@@ -13,5 +13,6 @@ namespace BibliotecaApi.Domain.Interfaces
         Task<bool> ExisteEmailAsync(string email);
         Task<bool> ExisteCpfExceptIdAsync(string cpf, int id);
         Task<bool> ExisteEmailExceptIdAsync(string email, int id);
+        Task<UsuariosEntity?> ObterPorEmail(string email);
     }
 }

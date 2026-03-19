@@ -59,7 +59,7 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
                 u.Nome, 
                 u.CPF.Numero, 
                 u.Email.Endereco, 
-                u.NivelAcesso, 
+                u.NivelAcesso.ToString(), 
                 u.Ativo, 
                 u.PossuiAtrasoAtivo,
                 u.DataCriacao, 

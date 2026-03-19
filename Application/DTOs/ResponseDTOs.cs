@@ -4,7 +4,7 @@ namespace BibliotecaApi.Application.DTOs
 {
     public record LivroResponse(int Id, string Titulo, string Autor, string ISBN, bool Ativo,DateTime DataCriacao, DateTime? DataAtualizacao);
 
-    public record UsuarioResponse(int Id, string Nome, string CPF, string Email, NivelAcesso NivelAcesso, bool Ativo, bool PossuiAtrasoAtivo, DateTime DataCriacao, DateTime? DataAtualizacao);
+    public record UsuarioResponse(int Id, string Nome, string CPF, string Email, string NivelAcesso, bool Ativo, bool PossuiAtrasoAtivo, DateTime DataCriacao, DateTime? DataAtualizacao);
 
     public record EmprestimoResponse(
         int Id, 

@@ -64,5 +64,10 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
         {
             return await _context.Usuarios.AnyAsync(u => u.Email.Endereco == email && u.Id != id);
         }
+
+        public async Task<UsuariosEntity?> ObterPorEmail(string email)
+        {
+            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Email.Endereco == email);
+        }
     }
 }

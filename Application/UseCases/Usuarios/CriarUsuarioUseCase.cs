@@ -8,10 +8,12 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
     public class CriarUsuarioUseCase
     {
         private readonly IUsuariosRepository _repository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public CriarUsuarioUseCase(IUsuariosRepository repository)
+        public CriarUsuarioUseCase(IUsuariosRepository repository, IPasswordHasher passwordHasher)
         {
             _repository = repository;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task ExecuteAsync(CriarUsuarioRequest request)
@@ -23,7 +25,8 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
                 throw new DomainException("Usuário com este Email já cadastrado.");
 
             var usuario = new UsuariosEntity();
-            usuario.Cadastrar(request.Nome, request.CPF, request.Email, request.Senha, request.NivelAcesso);
+            var senhaHash = _passwordHasher.Hash(request.Senha);
+            usuario.Cadastrar(request.Nome, request.CPF, request.Email, senhaHash, request.NivelAcesso);
             await _repository.AddAsync(usuario);
         }
     }

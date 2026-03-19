@@ -1,12 +1,14 @@
 using BibliotecaApi.Application.DTOs;
 using BibliotecaApi.Application.UseCases.Usuarios;
 using BibliotecaApi.Infrastructure.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaApi.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly CriarUsuarioUseCase _criarUseCase;

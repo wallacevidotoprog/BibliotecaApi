@@ -28,7 +28,7 @@ namespace BibliotecaApi.Presentation.Controllers
             _excluirUseCase = excluirUseCase;
         }
 
-        [HttpGet]
+        [HttpGet("listar")]
         public async Task<IActionResult> GetAll()
         {
             var emprestimos = await _obterUseCase.ObterTodosAsync();
@@ -43,7 +43,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<EmprestimoResponse>.Success(emprestimo));
         }
 
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] CriarEmprestimoRequest request)
         {
             await _criarUseCase.ExecuteAsync(request);
@@ -57,7 +57,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<EmprestimoResponse>.Success(response));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("deletar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _excluirUseCase.ExecuteAsync(id);

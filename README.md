@@ -33,7 +33,7 @@ Abaixo estão os pontos específicos solicitados no desafio e como cada um foi i
 
 ### 1. Validar CPF do usuário
 - **Requisito**: No cadastro de usuário, validar se o CPF já existe antes de cadastrar. Caso já exista, retornar erro.
-- **Solução**: No `CriarUsuarioUseCase`, o sistema consulta o banco de dados através do repositório para verificar a existência do CPF. Se encontrado, uma `DomainException` é lançada com a mensagem de erro.
+- **Solução**: Criei validações automáticas para CPF e Email. Se você tentar cadastrar algo errado, a API te avisa. Além disso, a senha nunca é salva "limpa", ela sempre passa pelo **BCrypt** tanto no cadastro quanto na atualização. Adicionei também travas de segurança: **usuários desativados não conseguem realizar login nem pegar novos livros emprestados**.
 
 ### 2. Validar ISBN do livro
 - **Requisito**: O campo ISBN deve conter exatamente 13 dígitos numéricos.
@@ -74,5 +74,16 @@ docker-compose up --build
 ```
 
 A API ficará disponível em `http://localhost:5000`. Você também pode acessar o **Swagger** em `/swagger` para testar os endpoints visualmente!
+
+---
+
+## Diferenciais (Seed de Dados)
+
+O sistema já vem com alguns dados pré-carregados para facilitar os testes iniciais:
+
+- **Usuário Administrador Padrão**:
+  - **Email**: `admin@biblioteca.com`
+  - **Senha**: `123`
+- **Livros**: Já existem 10 livros técnicos cadastrados.
 
 ---

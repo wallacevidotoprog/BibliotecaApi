@@ -30,6 +30,9 @@ namespace BibliotecaApi.Application.UseCases.Emprestimos
             var usuario = await _usuarioRepository.GetByIdAsync(request.IdUsuario);
             if (usuario == null) throw new DomainException("Usuário não encontrado.");
 
+            if (!usuario.Ativo)
+                throw new DomainException("Não é possível realizar empréstimo para um usuário desativado.");
+
             // Validação proativa de atrasos
             var emprestimosDoUsuario = await _repository.GetByUsuarioIdAsync(usuario.Id);
             _atrasoService.AtualizarUsuario(usuario, emprestimosDoUsuario.ToList());

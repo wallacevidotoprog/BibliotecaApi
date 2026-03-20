@@ -24,7 +24,6 @@ namespace BibliotecaApi.Infrastructure.Middleware
             }
             catch (Exception ex)
             {
-                // _logger.LogError(ex, "Ocorreu um erro não tratado.");
                 await HandleExceptionAsync(context, ex);
             }
         }

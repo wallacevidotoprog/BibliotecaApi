@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BibliotecaApi.Application.DTOs
 {
     public class LoginRequestDTO
     {
+        [Required(ErrorMessage = "O campo Email é obrigatório.")]
         public string Email { get; set; } = string.Empty;
+        [Required(ErrorMessage = "O campo Senha é obrigatório.")]
         public string Senha { get; set; } = string.Empty;
     }
 

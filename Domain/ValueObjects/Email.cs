@@ -28,7 +28,6 @@ namespace BibliotecaApi.Domain.ValueObjects
 
         private static bool EmailValido(string email)
         {
-            // Regex simples e eficiente para validação de email
             var regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
             return regex.IsMatch(email);
         }

@@ -1,4 +1,5 @@
 using BibliotecaApi.Domain.Enums;
+using BibliotecaApi.Domain.Exceptions;
 using BibliotecaApi.Domain.ValueObjects;
 
 namespace BibliotecaApi.Domain.Entities
@@ -21,10 +22,10 @@ namespace BibliotecaApi.Domain.Entities
         public void Cadastrar(string nome, string cpf, string email, string senhaHash, NivelAcesso nivelAcesso = NivelAcesso.Usuario)
         {
             if (string.IsNullOrWhiteSpace(nome))
-                throw new ArgumentException("Nome não pode ser vazio.");
+                throw new DomainException("Nome não pode ser vazio.");
 
             if (string.IsNullOrWhiteSpace(senhaHash))
-                throw new ArgumentException("Senha não pode ser vazia.");
+                throw new DomainException("Senha não pode ser vazia.");
 
             
             Nome = nome;

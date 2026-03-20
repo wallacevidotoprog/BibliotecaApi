@@ -1,5 +1,6 @@
 using BibliotecaApi.Domain.Entities;
 using BibliotecaApi.Domain.Interfaces;
+using BibliotecaApi.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaApi.Infrastructure.Data.Repository
@@ -47,7 +48,8 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
 
         public async Task<bool> ExisteCpfAsync(string cpf)
         {
-            return await _context.Usuarios.AnyAsync(u => u.CPF.Numero == cpf);
+            var cpfValue = CPF.Criar(cpf);
+            return await _context.Usuarios.AnyAsync(u => u.CPF.Numero == cpfValue.Numero);
         }
 
         public async Task<bool> ExisteEmailAsync(string email)

@@ -1,11 +1,13 @@
-using BibliotecaApi.Infrastructure.IOC;
+using BibliotecaApi.Infrastructure.Common;
 using BibliotecaApi.Infrastructure.Data;
+using BibliotecaApi.Infrastructure.IOC;
 using BibliotecaApi.Infrastructure.Middleware;
 using BibliotecaApi.Presentation.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +40,30 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = false;
+
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var mensagens = context.ModelState
+                .Where(x => x.Value != null && x.Value.Errors.Count > 0)
+                .SelectMany(x => x.Value!.Errors)
+                .Select(e => string.IsNullOrWhiteSpace(e.ErrorMessage)
+                    ? "Erro de validação."
+                    : e.ErrorMessage)
+                .ToList();
+
+            return new BadRequestObjectResult(
+                ApiResponse<object>.Error(
+                    mensagens.FirstOrDefault() ?? "Erro de validação."
+                )
+            );
+        };
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerConfiguration();

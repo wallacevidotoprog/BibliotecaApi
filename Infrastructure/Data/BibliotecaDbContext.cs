@@ -62,7 +62,7 @@ namespace BibliotecaApi.Infrastructure.Data
                 entity.ToTable("Usuarios");
                 entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.Ativo).HasDefaultValue(true);
+                entity.Property(e => e.Ativo);
 
                 entity.OwnsOne(e => e.CPF, b =>
                 {

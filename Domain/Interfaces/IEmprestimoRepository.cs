@@ -10,5 +10,7 @@ namespace BibliotecaApi.Domain.Interfaces
         Task UpdateAsync(EmprestimoEntity emprestimo);
         Task DeleteAsync(int id);
         Task<IEnumerable<EmprestimoEntity>> GetByUsuarioIdAsync(int usuarioId);
+        Task<bool> TemVinculoComUsuarioAsync(int usuarioId);
+        Task<bool> TemVinculoComLivroAsync(int livroId);
     }
 }

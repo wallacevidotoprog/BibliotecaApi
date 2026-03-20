@@ -57,5 +57,15 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
                 .Where(e => e.IdUsuario == usuarioId)
                 .ToListAsync();
         }
+
+        public async Task<bool> TemVinculoComUsuarioAsync(int usuarioId)
+        {
+            return await _context.Emprestimos.AnyAsync(e => e.IdUsuario == usuarioId);
+        }
+
+        public async Task<bool> TemVinculoComLivroAsync(int livroId)
+        {
+            return await _context.Emprestimos.AnyAsync(e => e.IdLivro == livroId);
+        }
     }
 }

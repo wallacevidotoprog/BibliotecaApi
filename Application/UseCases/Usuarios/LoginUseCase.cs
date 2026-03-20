@@ -27,6 +27,11 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
             {
                 throw new Exception("E-mail ou senha inválidos.");
             }
+            
+            if (!usuario.Ativo)
+            {
+                throw new Exception("Sua conta está desativada. Entre em contato com o administrador.");
+            }
 
             if (!_passwordHasher.Verificar(request.Senha, usuario.SenhaHash))
             {

@@ -8,10 +8,12 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
     public class AtualizarUsuarioUseCase
     {
         private readonly IUsuariosRepository _repository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public AtualizarUsuarioUseCase(IUsuariosRepository repository)
+        public AtualizarUsuarioUseCase(IUsuariosRepository repository, IPasswordHasher passwordHasher)
         {
             _repository = repository;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task ExecuteAsync(AtualizarUsuarioRequest request)
@@ -23,7 +25,9 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
             var nome = !string.IsNullOrWhiteSpace(request.Nome) ? request.Nome : usuario.Nome;
             var cpf = !string.IsNullOrWhiteSpace(request.CPF) ? request.CPF : usuario.CPF.Numero;
             var email = !string.IsNullOrWhiteSpace(request.Email) ? request.Email : usuario.Email.Endereco;
-            var senha = !string.IsNullOrWhiteSpace(request.Senha) ? request.Senha : usuario.SenhaHash;
+            var senha = !string.IsNullOrWhiteSpace(request.Senha) 
+                ? _passwordHasher.Hash(request.Senha) 
+                : usuario.SenhaHash;
 
             if (await _repository.ExisteCpfExceptIdAsync(cpf, request.Id))
                 throw new DomainException("Já existe outro usuário cadastrado com este CPF.");

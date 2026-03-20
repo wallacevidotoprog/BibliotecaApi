@@ -39,7 +39,8 @@ namespace BibliotecaApi.Application.UseCases.Usuarios
             {
                 Token = token,
                 Nome = usuario.Nome,
-                Email = usuario.Email.Endereco
+                Email = usuario.Email.Endereco,
+                NivelAcesso = usuario.NivelAcesso.ToString()
             };
         }
     }

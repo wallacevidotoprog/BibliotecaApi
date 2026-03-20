@@ -8,7 +8,7 @@ namespace BibliotecaApi.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class EmprestimosController : ControllerBase
     {
         private readonly CriarEmprestimoUseCase _criarUseCase;

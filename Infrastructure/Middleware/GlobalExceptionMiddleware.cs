@@ -31,21 +31,38 @@ namespace BibliotecaApi.Infrastructure.Middleware
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
-            
-            if (exception is DomainException)
+
+            var options = new JsonSerializerOptions
             {
-                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            }
-            else
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
+            ApiResponse<object> response;
+
+            switch (exception)
             {
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                case DomainException:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    response = ApiResponse<object>.Error(exception.Message);
+                    break;
+
+                case JsonException ex:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                    var mensagem = ex.Message.Contains("trailing comma")
+                        ? "JSON inválido. Remova a vírgula extra no final."
+                        : "JSON inválido.";
+
+                    response = ApiResponse<object>.Error(mensagem);
+                    break;
+
+                default:
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    response = ApiResponse<object>.Error("Erro interno no servidor.");
+                    break;
             }
 
-            var response = ApiResponse<object>.Error(exception.Message);
-            
-            var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
             var json = JsonSerializer.Serialize(response, options);
-
             return context.Response.WriteAsync(json);
         }
     }

@@ -38,6 +38,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<IEnumerable<LivroResponse>>.Success(livros));
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,6 +47,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<LivroResponse>.Success(livro));
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost("cadastrar")]
         public async Task<IActionResult> Create([FromBody] CriarLivroRequest request)
         {
@@ -53,6 +55,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<string>.Success("Livro criado com sucesso."));
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] AtualizarLivroRequest request)
         {
@@ -62,6 +65,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<string>.Success("Livro atualizado com sucesso."));
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpDelete("deletar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -69,6 +73,7 @@ namespace BibliotecaApi.Presentation.Controllers
             return Ok(ApiResponse<string>.Success("Livro deletado com sucesso."));
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPatch("{id}/status")]
         public async Task<IActionResult> ToggleStatus(int id, bool ativo)
         {

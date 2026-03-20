@@ -62,6 +62,14 @@ Abaixo estão os pontos específicos solicitados no desafio e como cada um foi i
 ### 8. Autenticação JWT (Bearer)
 - **Requisito**: Proteger endpoints sensíveis (Cadastro de Livro, Empréstimos, Devoluções) com autenticação.
 - **Solução**: Configurei a autenticação **JWT** no `Program.cs`. Endpoints administrativos exigem a role `Administrador`, enquanto endpoints de consulta (como listar livros) permitem acesso de qualquer usuário autenticado. Tokens inválidos recebem automaticamente erro `401 Unauthorized`.
+ 
+### 9. Proteção de Exclusão com Vínculos
+- **Requisito**: Impedir a exclusão de usuários ou livros que possuam qualquer histórico de empréstimo.
+- **Solução**: Implementei uma verificação nos casos de uso de exclusão. Se houver qualquer registro vinculado na tabela de empréstimos, a exclusão é abortada para preservar a integridade referencial.
+
+### 10. Impedir Desativação com Pendências
+- **Requisito**: Não permitir que um usuário seja desativado se ele ainda possuir livros para devolver.
+- **Solução**: Adicionei uma trava no `AlternarStatusUsuarioUseCase`. O sistema consulta se o usuário possui empréstimos pendentes (`DataDevolucao` nula) antes de permitir a alteração para inativo.
 
 ---
 

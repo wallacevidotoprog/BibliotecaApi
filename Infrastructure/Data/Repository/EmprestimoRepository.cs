@@ -67,5 +67,10 @@ namespace BibliotecaApi.Infrastructure.Data.Repository
         {
             return await _context.Emprestimos.AnyAsync(e => e.IdLivro == livroId);
         }
+
+        public async Task<bool> TemEmprestimoPendentePorUsuarioAsync(int usuarioId)
+        {
+            return await _context.Emprestimos.AnyAsync(e => e.IdUsuario == usuarioId && e.DataDevolucao == null);
+        }
     }
 }

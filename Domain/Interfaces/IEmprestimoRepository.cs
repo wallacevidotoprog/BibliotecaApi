@@ -12,5 +12,6 @@ namespace BibliotecaApi.Domain.Interfaces
         Task<IEnumerable<EmprestimoEntity>> GetByUsuarioIdAsync(int usuarioId);
         Task<bool> TemVinculoComUsuarioAsync(int usuarioId);
         Task<bool> TemVinculoComLivroAsync(int livroId);
+        Task<bool> TemEmprestimoPendentePorUsuarioAsync(int usuarioId);
     }
 }
